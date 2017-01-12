@@ -1,7 +1,9 @@
 Vaporetto
 =========
 
-Very lightweight proxy-based immutable value types for Java 8.
+[![Build Status](https://travis-ci.org/poetix/vaporetto.svg?branch=master)](https://travis-ci.org/poetix/vaporetto)
+
+Very lightweight proxy-based immutable value types for Java 8. (Compare [phantom-pojos](https://github.com/poetix/phantom-pojos), an earlier iteration of the same idea).
 
 Define types as follows:
 
