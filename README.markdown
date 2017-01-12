@@ -32,6 +32,6 @@ Person person = Vaporetto.build(Person.class, p -> p
 Update values like this:
 
 ```java
-Person updated = person.with(p -> p
+Person updated = person.update(p -> p
     .with(Person::age, 43));
 ```
