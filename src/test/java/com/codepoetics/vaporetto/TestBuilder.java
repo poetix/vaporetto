@@ -51,7 +51,7 @@ public class TestBuilder {
                         .with(Address::addressLines, "23 Acacia Avenue", "Sunderland")
                         .with(Address::postcode, "VB6 5UX")));
 
-        Person person3 = person2.with(p -> p.with(Person::name, "Arthur Daley"));
+        Person person3 = person2.update(p -> p.with(Person::name, "Arthur Daley"));
 
         assertThat(person1, not(sameInstance(person2)));
         assertThat(person1, equalTo(person2));
@@ -67,9 +67,9 @@ public class TestBuilder {
                         .with(Address::addressLines, "23 Acacia Avenue", "Sunderland")
                         .with(Address::postcode, "VB6 5UX")));
 
-        Person updatedPerson = person.with(p -> p
+        Person updatedPerson = person.update(p -> p
                 .with(Person::name, "Arthur Daley")
-                .with(Person::address, person.address().with(a -> a
+                .with(Person::address, person.address().update(a -> a
                     .with(Address::postcode, "RA8 81T"))));
 
         // person is unchanged

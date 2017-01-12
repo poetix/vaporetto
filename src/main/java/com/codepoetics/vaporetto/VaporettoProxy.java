@@ -39,7 +39,7 @@ final class VaporettoProxy<T> implements InvocationHandler, VType<T>, VProxy {
     }
 
     @Override
-    public T with(UnaryOperator<Vaporetto<T>> builder) {
+    public T update(UnaryOperator<Vaporetto<T>> builder) {
         return Vaporetto.build(info, Arrays.copyOf(slots, slots.length), builder);
     }
 
