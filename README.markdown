@@ -45,7 +45,7 @@ Property<Person, Address> address = Property.of(Person.class, Person::address);
 Property<Address, String> postcode = Property.of(Address.class, Address::postcode);
 Property<Person, String> addressPostcode = address.chain(postcode);
 
-\\ OR
+// OR
 Property<Person, String> addressPostcode = Property.of(
     Property.of(Person.class, Person::Address),
     Address::postcode);
