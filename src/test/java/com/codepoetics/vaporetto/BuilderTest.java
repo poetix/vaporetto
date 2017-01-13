@@ -2,23 +2,10 @@ package com.codepoetics.vaporetto;
 
 import org.junit.Test;
 
-import java.util.Collection;
-
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
-public class TestBuilder {
-
-    public interface Address extends VType<Address> {
-        Collection<String> addressLines();
-        String postcode();
-    }
-
-    public interface Person extends VType<Person> {
-        String name();
-        int age();
-        Address address();
-    }
+public class BuilderTest {
 
     @Test
     public void buildsStructure() {
