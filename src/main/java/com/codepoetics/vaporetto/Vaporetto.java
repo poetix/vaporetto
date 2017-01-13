@@ -1,13 +1,12 @@
 package com.codepoetics.vaporetto;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.function.UnaryOperator;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public final class Vaporetto<T> implements Supplier<T> {
 
@@ -37,7 +36,20 @@ public final class Vaporetto<T> implements Supplier<T> {
 
     @SafeVarargs
     public final <V> Vaporetto<T> with(Function<? super T, ? extends Collection<? extends V>> property, V...values) {
-        return with(property, Arrays.asList(values));
+        PropertyInfo<Collection<? extends V>> propertyInfo = info.getPropertyInfo(property);
+        Collection<? extends V> collection = makeCollection(propertyInfo.getType(), values);
+        slotWriters.add((slots) -> slots[propertyInfo.getSlotIndex()] = collection);
+        return this;
+    }
+
+    private <V> Collection<? extends V> makeCollection(Class<? extends Collection<? extends V>> cls, V[] values) {
+        if (cls.isAssignableFrom(List.class)) {
+            return Arrays.asList(values);
+        }
+        if (cls.isAssignableFrom(Set.class)) {
+            return Stream.of(values).collect(Collectors.toSet());
+        }
+        throw new UnsupportedOperationException("Collection type " + cls + " is not supported");
     }
 
     public <V> Vaporetto<T> with(Function<? super T, ? extends V> property, UnaryOperator<Vaporetto<V>> builder) {

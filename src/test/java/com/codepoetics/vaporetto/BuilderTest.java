@@ -12,12 +12,14 @@ public class BuilderTest {
         Person person = Vaporetto.build(Person.class, p -> p
                 .with(Person::name, "Arthur Putey")
                 .with(Person::age, 42)
+                .with(Person::phoneNumbers, "01234567890", "07772345678")
                 .with(Person::address, a -> a
                     .with(Address::addressLines, "23 Acacia Avenue", "Sunderland")
                     .with(Address::postcode, "VB6 5UX")));
 
         assertThat(person.name(), equalTo("Arthur Putey"));
         assertThat(person.age(), equalTo(42));
+        assertThat(person.phoneNumbers(), contains("01234567890", "07772345678"));
         assertThat(person.address().addressLines(), contains("23 Acacia Avenue", "Sunderland"));
         assertThat(person.address().postcode(), equalTo("VB6 5UX"));
     }
@@ -27,6 +29,7 @@ public class BuilderTest {
         Person person1 = Vaporetto.build(Person.class, p -> p
                 .with(Person::name, "Arthur Putey")
                 .with(Person::age, 42)
+                .with(Person::phoneNumbers, "01234567890", "07772345678")
                 .with(Person::address, a -> a
                         .with(Address::addressLines, "23 Acacia Avenue", "Sunderland")
                         .with(Address::postcode, "VB6 5UX")));
@@ -34,6 +37,7 @@ public class BuilderTest {
         Person person2 = Vaporetto.build(Person.class, p -> p
                 .with(Person::name, "Arthur Putey")
                 .with(Person::age, 42)
+                .with(Person::phoneNumbers, "01234567890", "07772345678")
                 .with(Person::address, a -> a
                         .with(Address::addressLines, "23 Acacia Avenue", "Sunderland")
                         .with(Address::postcode, "VB6 5UX")));
@@ -50,6 +54,7 @@ public class BuilderTest {
         Person person = Vaporetto.build(Person.class, p -> p
                 .with(Person::name, "Arthur Putey")
                 .with(Person::age, 42)
+                .with(Person::phoneNumbers, "01234567890", "07772345678")
                 .with(Person::address, a -> a
                         .with(Address::addressLines, "23 Acacia Avenue", "Sunderland")
                         .with(Address::postcode, "VB6 5UX")));
@@ -70,6 +75,18 @@ public class BuilderTest {
         assertThat(updatedPerson.age(), equalTo(42));
         assertThat(updatedPerson.address().addressLines(), contains("23 Acacia Avenue", "Sunderland"));
         assertThat(updatedPerson.address().postcode(), equalTo("RA8 81T"));
+    }
+
+    @Test
+    public void collectionsDefaultToEmpty() {
+        Person person = Vaporetto.build(Person.class, p -> p
+                .with(Person::name, "Arthur Putey")
+                .with(Person::age, 42)
+                .with(Person::address, a -> a
+                        .with(Address::postcode, "VB6 5UX")));
+
+        assertThat(person.phoneNumbers(), empty());
+        assertThat(person.address().addressLines(), empty());
     }
 
 }

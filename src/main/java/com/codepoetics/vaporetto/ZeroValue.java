@@ -1,5 +1,10 @@
 package com.codepoetics.vaporetto;
 
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 final class ZeroValue {
 
     @SuppressWarnings("unchecked")
@@ -8,6 +13,15 @@ final class ZeroValue {
     }
 
     static Object forType(Class<?> type) {
+        if (type.isAssignableFrom(Map.class)) {
+            return Collections.emptyMap();
+        }
+        if (type.isAssignableFrom(List.class)) {
+            return Collections.emptyList();
+        }
+        if (type.isAssignableFrom(Set.class)) {
+            return Collections.emptySet();
+        }
         if (!type.isPrimitive()) {
             return null;
         }
