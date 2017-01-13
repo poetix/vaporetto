@@ -40,10 +40,15 @@ Person updated = person.update(p -> p
 
 Reify properties into lenses like this:
 
-```
-Property<Person, Address> address = Property.of(Person.class, Person::Address);
-Property<Address, String> postcode = Property.of(Address.class, Address::Postcode);
+```java
+Property<Person, Address> address = Property.of(Person.class, Person::address);
+Property<Address, String> postcode = Property.of(Address.class, Address::postcode);
 Property<Person, String> addressPostcode = address.chain(postcode);
+
+\\ OR
+Property<Person, String> addressPostcode = Property.of(
+    Property.of(Person.class, Person::Address),
+    Address::postcode);
 
 assertThat(addressPostcode.get(person), equalTo("VB6 5UX"));
 
