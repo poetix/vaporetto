@@ -2,6 +2,7 @@ Vaporetto
 =========
 
 [![Build Status](https://travis-ci.org/poetix/vaporetto.svg?branch=master)](https://travis-ci.org/poetix/vaporetto)
+[![Maven Central](https://img.shields.io/maven-central/v/com.codepoetics/vaporetto.svg)](http://search.maven.org/#search%7Cga%7C1%vaporetto)
 
 Very lightweight proxy-based immutable value types for Java 8. (Compare [phantom-pojos](https://github.com/poetix/phantom-pojos), an earlier iteration of the same idea).
 
