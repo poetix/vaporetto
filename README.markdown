@@ -37,3 +37,16 @@ Update values like this:
 Person updated = person.update(p -> p
     .with(Person::age, 43));
 ```
+
+Reify properties into lenses like this:
+
+```
+Property<Person, Address> address = Property.of(Person.class, Person::Address);
+Property<Address, String> postcode = Property.of(Address.class, Address::Postcode);
+Property<Person, String> addressPostcode = address.chain(postcode);
+
+assertThat(addressPostcode.get(person), equalTo("VB6 5UX"));
+
+Person updatedPerson = addressPostcode.update(person, "RA8 81T");
+assertThat(updatedPerson.address().postcode(), equalTo("RA8 81T"));
+```
